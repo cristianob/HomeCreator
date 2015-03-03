@@ -1,6 +1,5 @@
 <?
-class Text implements HC_Element, HC_Text_Element {
-	var $text;
+class Text extends HC_Text_Element {
 	var $size;
 	var $align;
 	var $weight;
@@ -10,10 +9,6 @@ class Text implements HC_Element, HC_Text_Element {
 	
 	public function __construct($text = "") {
 		$this->set_text($text);
-	}
-	
-	public function set_text($text) {
-		$this->text = $text;
 	}
 
 	public function get_html() {
@@ -47,14 +42,13 @@ class Text implements HC_Element, HC_Text_Element {
 	
 	private function process_text() {
 		$this->text = UTF8_decode($this->text);
-		$this->text = htmlentities($this->text);
 		$this->text = str_replace("&quot;", "\"", $this->text);
 		$this->text = str_replace("\\n", "<br />", $this->text);
 	
-		$patterns = array("/====(.*?)====/",
-				  "/===(.*?)===/", 
-				  "/==(.*?)==/", 
-				  "/=(.*?)=/", 
+		$patterns = array(
+				  '/=====(.*?)=====/',
+				  '/====(.*?)====/',
+				  '/===(.*?)===/',				  
 				  '/image:\b(?:(http(s?):\/\/)|(?=www\.))(\S+)/is', 
 				  '/\\[center\\][\\n]?/',
 				  '/\\[\\/center\\][\\n]?/',
@@ -73,10 +67,10 @@ class Text implements HC_Element, HC_Text_Element {
 				  '/([\s\n\t])\b(?:(http(s?):\/\/)|(?=www\.))(\S+)\:(\S+)/is',
 				  '/([\s\n\t])\b(?:(http(s?):\/\/)|(?=www\.))(\S+)([\s\n\t])/is');
 
-		$replaces = array("<h5>\\1</h5>",
-				  "<h4>\\1</h4>",
-				  "<h3>\\1</h3>",
-				  "<h2>\\1</h2>",
+		$replaces = array(
+				  '<h4>$1</h4>',
+				  '<h3>$1</h3>',
+				  '<h2>$1</h2>',				  
 				  '<img src="http$2://$3" />', 
 				  '<div style="text-align: center; width: 100%">',
 				  '</div>',

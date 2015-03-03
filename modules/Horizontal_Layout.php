@@ -1,14 +1,9 @@
 <?php
-class Horizontal_Layout implements HC_Element, HC_Multi_Container_Element {
-	var $items = array();
+class Horizontal_Layout extends HC_Multi_Container_Element {
 	var $align = array();
 	var $heights = array();
 	var $height = "";
 	var $paddings = array();
-
-	public function add_element($slider_item) {
-		$this->items[] = $slider_item;
-	}
 	
 	public function set_height($row, $height) {
 		$this->heights[$row - 1] = $height;
@@ -38,11 +33,11 @@ class Horizontal_Layout implements HC_Element, HC_Multi_Container_Element {
 		foreach($this->heights as $h)
 			$total_set_height += $h;
 		
-		foreach($this->items as $item) {
+		foreach($this->elements as $item) {
 			if(array_key_exists($i, $this->heights))
 				$height = $this->heights[$i];
 			else
-				$height = floor(100 / (sizeof($this->items) - $total_set_height));
+				$height = floor(100 / (sizeof($this->elements) - $total_set_height));
 				
 			if(array_key_exists($i, $this->align))
 				$align = $this->align[$i];
@@ -54,7 +49,7 @@ class Horizontal_Layout implements HC_Element, HC_Multi_Container_Element {
 			else
 				$padding = "0";
 			
-			if($i+1 == sizeof($this->items))
+			if($i+1 == sizeof($this->elements))
 				$html .= '<div class="horizontal_slide_item" style="height: ' . $height . '%; border-right: none; text-align: ' . $align . '; padding: ' . $padding . ';">'. $item->get_html() ."</div>\n";
 			else
 				$html .= '<div class="horizontal_slide_item" style="height: ' . $height . '%; text-align: ' . $align . '; padding: ' . $padding . ';">'. $item->get_html() ."</div>\n";
@@ -77,8 +72,8 @@ class Horizontal_Layout implements HC_Element, HC_Multi_Container_Element {
 		$style[".horizontal_slide_item"]["width"] = "100%";
 		$style[".horizontal_slide_item"]["border-right"] = "1px solid silver";
 
-		for($i = 0; $i < sizeof($this->items); $i++) {
-			$style = array_merge($style, $this->items[$i]->get_style());
+		for($i = 0; $i < sizeof($this->elements); $i++) {
+			$style = array_merge($style, $this->elements[$i]->get_style());
 		}
 		
 		return $style;
@@ -87,8 +82,8 @@ class Horizontal_Layout implements HC_Element, HC_Multi_Container_Element {
 	public function get_script() {
 		$script = "";
 		
-		for($i = 0; $i < sizeof($this->items); $i++) {
-			$script .= $this->items[$i]->get_script();
+		for($i = 0; $i < sizeof($this->elements); $i++) {
+			$script .= $this->elements[$i]->get_script();
 		}
 		
 		return $script;

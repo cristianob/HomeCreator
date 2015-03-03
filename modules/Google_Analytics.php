@@ -1,5 +1,5 @@
 <?php
-class Google_Analytics implements HC_Element {
+class Google_Analytics extends HC_Element {
 	var $id;
 	
 	public function __construct($id) {

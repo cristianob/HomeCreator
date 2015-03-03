@@ -1,5 +1,5 @@
 <?php
-class Input extends HC_Form_Item implements HC_Element {
+class Input extends HC_Form_Item {
 	var $type = "text";
 	var $label;
 	var $label_br = true;

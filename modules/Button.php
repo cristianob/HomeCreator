@@ -1,6 +1,5 @@
 <?
-class Button implements HC_Element, HC_Text_Element {
-	var $text;
+class Button extends HC_Text_Element {
 	var $size;
 	var $align;
 	var $weight;
@@ -16,10 +15,6 @@ class Button implements HC_Element, HC_Text_Element {
 	
 	var $href;
 	var $title;
-	
-	public function set_text($text) {
-		$this->text = $text;
-	}
 	
 	public function get_html() {
 		$style = "";

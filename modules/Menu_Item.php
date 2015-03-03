@@ -1,5 +1,5 @@
 <?php
-class Menu_Item implements HC_Element {
+class Menu_Item extends HC_Element {
 	var $label;
 	var $href;
 	var $title;

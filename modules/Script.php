@@ -1,5 +1,5 @@
 <?
-class Script implements HC_Element, HC_Text_Element {
+class Script extends HC_Text_Element {
 	var $text;
 	
 	public function __construct($text = "") {

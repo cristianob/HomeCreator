@@ -1,15 +1,10 @@
 <?php
-class Form implements HC_Element, HC_Multi_Container_Element {
-	var $elements = array();
+class Form extends HC_Multi_Container_Element {
 	var $padding = "0 20px";
 	var $name = "";
 	var $action = "";
 	var $method = "";
 	var $send_label = "Send";
-	
-	public function add_element($element) {
-		$this->elements[] = $element;
-	}
 
 	public function get_html() {
 		$html = "<form id=\"{$this->name}\" action=\"{$this->action}\" method=\"{$this->method}\">\n";
@@ -60,7 +55,7 @@ EOF;
 	}
 }
 
-class HC_Form_Item implements HC_Element {
+class HC_Form_Item extends HC_Element {
 	var $form_name = "";
 	
 	public function set_form_name($name) {

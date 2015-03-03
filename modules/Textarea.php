@@ -1,5 +1,5 @@
 <?php
-class Textarea extends HC_Form_Item implements HC_Element {
+class Textarea extends HC_Form_Item {
 	var $label;
 	var $id;
 	var $width = "320px";

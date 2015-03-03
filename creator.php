@@ -41,13 +41,50 @@ class HC_Creator {
 	public function __construct() {
 		$this->set_style_defaults();	
 	}
-	
-	public function include_modules(array $modules) {
-		
-	}
 
 	public function add_element($element) {
 		$this->elements[] = $element;
+	}
+	
+	public function include_modules($modules) {
+	
+	}
+	
+	public function get_element_by_id($id, $array = "") {
+		if($array === "")
+			$array = $this->elements;
+			
+		$rtr = false;
+		
+		foreach($array as $a) {		
+			if(!is_object($a))
+				continue;
+			
+			if($a->id == $id)
+				return $a;
+				
+			elseif($a instanceof HC_Container_Element) {
+				$rtr = $this->get_element_by_id($id, array($a->get_inner_element()));
+				if($rtr !== false)
+					return $rtr;
+			}
+			
+			elseif($a instanceof HC_Multi_Container_Element) {
+				$elements = $a->get_elements();
+								
+				foreach($elements as $b) {
+					if(!is_array($b)) {
+						$b = array($b);
+					}
+					
+					$rtr = $this->get_element_by_id($id, $b);
+					if($rtr !== false)
+						return $rtr;
+				}
+			}
+		}
+		
+		return false;
 	}
 
 	public function set_doctype($doctype) {
@@ -125,7 +162,7 @@ class HC_Creator {
 		if($this->description != "") echo '<meta name="description" content="' . $this->description . '" />'."\n";
 		if($this->author != "") 	 echo '<meta name="author" content="' . $this->author . '" />'."\n";
 		echo '<meta name="generator" content="HomeCreator 0.1alpha" />'."\n";
-		echo '<meta name="viewport" content="width=1250px, user-scalable=yes" />';
+		echo '<meta name="viewport" content="width=700, user-scalable=no" />';
 		echo '<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />';
 		
 		//External css's

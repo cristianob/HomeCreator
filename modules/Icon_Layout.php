@@ -1,16 +1,10 @@
 <?php
-class Icon_Layout implements HC_Element, HC_Multi_Container_Element {
-	var $elements = array();
-		
+class Icon_Layout extends HC_Multi_Container_Element {		
 	var $border = "none";
 	var $horizontal_aligns = array();
 	var $vertical_aligns = array();
 	var $padding = "0 10px 20px 0";
 	var $margin = "0";
-	
-	public function add_element($element) {
-		$this->elements[] = $element;
-	}
 	
 	public function get_html() {
 		if(is_string($this->horizontal_aligns))

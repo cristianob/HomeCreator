@@ -1,5 +1,5 @@
 <?php
-class Header implements HC_Element, HC_Container_Element {
+class Header extends HC_Container_Element {
 	const BACKGROUND_NONE = 0;
 
 	var $logo;
@@ -11,21 +11,15 @@ class Header implements HC_Element, HC_Container_Element {
 	var $width = "100%";
 	var $wrapper_width = "1000px";
 	
-	var $menu = null;
-	
-	public function set_inner_element($menu) {
-		$this->menu = $menu;
-	}
-	
 	function get_html() {
 		$html = "<header class=\"header\">\n";
 		$html .= "<div class=\"header-wrapper\">\n";
 		if($this->logo == "")
-			$html .= "<h1><a href=\"http://". $_SERVER["SERVER_NAME"] ."\">" . $this->title . "</a></h1>";
+			$html .= "<h1><a href=\"http://". $_SERVER["SERVER_NAME"] ."\" style=\"text-decoration:none;color:{$this->title_color}\">" . $this->title . "</a></h1>";
 		else
 			$html .= "<h1><a href=\"http://". $_SERVER["SERVER_NAME"] ."\"><img src=\"". $this->logo ."\" alt=\"".$this->title."\" /></a></h1>";
 			
-		if($this->menu instanceof Menu) $html .= $this->menu->get_html();
+		if($this->element instanceof Menu) $html .= $this->element->get_html();
 		
 		$html .= "</div>";
 		$html .= "</header>";
@@ -48,7 +42,7 @@ class Header implements HC_Element, HC_Container_Element {
 		$style["HEADER.header A"]["display"] = "table-cell";
 		$style["HEADER.header A"]["vertical-align"] = "middle";
 		
-		if($this->menu instanceof Menu) $style = array_merge_recursive($style, $this->menu->get_style());
+		if($this->element instanceof Menu) $style = array_merge_recursive($style, $this->element->get_style());
 
 		return $style;
 	}

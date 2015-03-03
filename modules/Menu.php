@@ -1,7 +1,5 @@
 <?php
-class Menu implements HC_Element, HC_Multi_Container_Element {
-	var $elements = array();
-	
+class Menu extends HC_Multi_Container_Element {
 	var $color = "#eeeeee";
 	var $selected_color = "#eeeeee";
 	var $font_size = "15pt";

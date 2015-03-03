@@ -1,18 +1,12 @@
 <?php
-class Vertical_Layout implements HC_Element, HC_Multi_Container_Element {
-	var $elements = array();
-	
+class Vertical_Layout extends HC_Multi_Container_Element {	
 	var $border = "1px solid #CCCCCC";
 	var $horizontal_aligns = array();
 	var $vertical_aligns = array();
 	var $padding = "0 20px";
 	var $margin = "0";
 	var $height = "";
-	
-	public function add_element($element) {
-		$this->elements[] = $element;
-	}
-	
+
 	public function get_html() {
 		if(is_string($this->horizontal_aligns))
 			$this->horizontal_aligns = explode(";", $this->horizontal_aligns);

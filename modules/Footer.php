@@ -1,23 +1,17 @@
 <?php
-class Footer implements HC_Element, HC_Container_Element {
-	var $container;
-	
+class Footer extends HC_Container_Element {
 	var $width = "100%";
 	var $background_color = "#000000";
 	var $border = "none";
 	var $padding = "15px 0";
 	var $wrapper_width = "1000px";
-	
-	
-	public function set_inner_element($container) {
-		$this->container = $container;
-	}
+	var $fixed = "false";
 
 	public function get_html() {
 		$html = "<footer class=\"footer\">\n";
 		$html .= "<div class=\"footer-wrapper\">\n";
-		if($this->container != NULL)
-			$html .= $this->container->get_html();
+		if($this->element != NULL)
+			$html .= $this->element->get_html();
 		$html .= "</div>";
 		$html .= "</footer>";
 
@@ -27,6 +21,11 @@ class Footer implements HC_Element, HC_Container_Element {
 	public function get_style() {
 		$style = array();
 		$style["FOOTER.footer"]["width"] = $this->width;
+		
+		if($this->fixed == "true") {
+			$style["FOOTER.footer"]["position"] = "fixed";
+			$style["FOOTER.footer"]["bottom"] = "0px";
+		}
 		
 		if($this->background_color != "transparent")
 			$style["FOOTER.footer"]["background-color"] = $this->background_color;
@@ -43,14 +42,14 @@ class Footer implements HC_Element, HC_Container_Element {
 		$style["FOOTER.footer DIV.footer-wrapper"]["height"] = "100%";
 		$style["FOOTER.footer DIV.footer-wrapper"]["display"] = "table";
 		
-		if($this->container != NULL)
-			$style = array_merge($style, $this->container->get_style());
+		if($this->element != NULL)
+			$style = array_merge($style, $this->element->get_style());
 
 		return $style;
 	}
 
 	public function get_script() {
-		return $this->container->get_script();
+		return $this->element->get_script();
 	}
 	
 }

@@ -1,5 +1,5 @@
 <?php
-class Image implements HC_Element {
+class Image extends HC_Element {
 	var $src;
 	var $title;
 	var $href;
